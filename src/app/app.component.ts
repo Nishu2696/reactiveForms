@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { stringify } from 'querystring';
+
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,7 @@ export class AppComponent {
       code: "IN",
       name: "INDIA",
       states: {
-        "TN" :{
+        "TN": {
           code: "TN",
           name: "TAMILNADU",
           cities: [
@@ -28,7 +30,7 @@ export class AppComponent {
             }
           ]
         },
-        "KL":{
+        "KL": {
           code: "KL",
           name: "KERALA",
           cities: [
@@ -48,7 +50,7 @@ export class AppComponent {
       code: "US",
       name: "UNITED STATES OF AMERICA",
       states: {
-        "NY":{
+        "NY": {
           code: "NY",
           name: "NEWYORK",
           cities: [
@@ -64,7 +66,7 @@ export class AppComponent {
           ]
 
         },
-        "MI":{
+        "MI": {
           code: "MI",
           name: "MIAMI",
           cities: [
@@ -82,12 +84,13 @@ export class AppComponent {
     }
   };
 
-  countryList;
-  stateList;
-  cityList;
+  countryList=[];
+  stateList=[];
+  cityList=[];
+  i:string;
 
-  constructor() {
-    this.userForm = new FormGroup({
+  constructor(private fb: FormBuilder) {
+    /*this.userForm = new FormGroup({
       'Name': new FormControl("", Validators.required),
       'email': new FormControl("", [Validators.required, Validators.email]),
       "Password": new FormControl("", Validators.required),
@@ -99,23 +102,67 @@ export class AppComponent {
       "Marital-Status": new FormControl("", Validators.required),
       "Fav-Food": new FormControl("", Validators.required),
       "Fav-color": new FormControl("", Validators.required),
-    });
-    let countryKeys = Object.keys(this.countries);
-    this.countryList = countryKeys.map((keys) => this.countries[keys]);
+    });*/
+    
+    this.countryList = Object.keys(this.countries);
     console.log(this.countryList);
 
-    this.userForm.get('country').valueChanges.subscribe((data) => {
+    this.userForm = this.fb.group({
+      name: this.fb.control("",Validators.required),
+      email: this.fb.control("", [Validators.required, Validators.email]),
+      Password: this.fb.control("",Validators.required),
+      ConfirmPassword: this.fb.control("",Validators.required),
+      address: this.fb.array([
+        this.fb.group({
+          country:this.fb.control("",Validators.required),
+          state:this.fb.control("",Validators.required),
+          city:this.fb.control("",Validators.required),
+        }),
+        this.fb.group({
+          country:this.fb.control("",Validators.required),
+          state:this.fb.control("",Validators.required),
+          city:this.fb.control("",Validators.required),
+        }),
+      ]),
+      gender:this.fb.control("",Validators.required),
+      Marital:this.fb.control("",Validators.required),
+      Food:this.fb.control("",Validators.required),
+      Color: this.fb.control("",Validators.required),
+
+    });
+
+    console.log(this.userForm.get("address").value);
+
+    for(let  i in this.userForm.get('address').value){
+      console.log(this.userForm.get('address').get(i).get('country').valueChanges);
+      this.userForm.get('address').get(i).get('country').valueChanges.subscribe((data) => {
+        this.stateList[i] = Object.keys(this.countries[data].states).map((item) => {
+          console.log(this.countries[data].states[item]);
+          return this.countries[data].states[item];
+        });
+      });
+    }
+    for(let i in this.userForm.get('address').value){
+      // console.log( this.myForm.get('address').get(i).get('state'))
+      this.userForm.get('address').get(i).get('state').valueChanges.subscribe((data) => {
+        console.log(data);
+        this.cityList[i] = this.countries[this.userForm.get('address').get(i).get('country').value]['states'][data]['cities'];
+        // console.log(this.cityList);
+      });
+    }
+
+    /*this.userForm.get("address").get("country").valueChanges.subscribe((data) => {
       console.log(data);
-      this.stateList=Object.keys(this.countries[data].states).map((keys)=>{
+      this.stateList = Object.keys(this.countries[data].states).map((keys) => {
         return this.countries[data].states[keys];
       });
       //this.stateList = this.countries[data].states;
       console.log(this.stateList);
     });
-    this.userForm.get("state").valueChanges.subscribe((data) => {
-      this.cityList=this.countries[this.userForm.get('country').value]["states"][data]["cities"];
+    this.userForm.get("address").get("state").valueChanges.subscribe((data) => {
+      this.cityList = this.countries[this.userForm.get("address").get("country").value]["states"][data]["cities"];
       console.log(this.cityList);
-    })
+    })*/
   }
 
 

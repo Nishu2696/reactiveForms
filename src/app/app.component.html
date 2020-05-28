@@ -6,8 +6,10 @@
           <label for="">
             Name:
           </label>
-          <input [ngClass]="{'outbox': (!userForm.get('Name').valid && userForm.get('Name').dirty)}" type="text" formControlName="Name" class="form-control" required>
-          <span *ngIf="(!userForm.get('Name').valid && userForm.get('Name').dirty)" style="color: red;">Please Enter Name</span>
+          <input [ngClass]="{'outbox': (!userForm.get('Name').valid && userForm.get('Name').dirty)}" type="text"
+            formControlName="Name" class="form-control" required>
+          <span *ngIf="(!userForm.get('Name').valid && userForm.get('Name').dirty)" style="color: red;">Please Enter
+            Name</span>
         </div>
       </div>
     </div>
@@ -17,8 +19,10 @@
           <label for="">
             E-mail:
           </label>
-          <input [ngClass]="{'outbox': (!userForm.get('email').valid && userForm.get('email').dirty)}" type="text" formControlName="email" class="form-control" required>
-          <span *ngIf="(!userForm.get('email').valid && userForm.get('email').dirty)" style="color: red;">Please Enter Valid E-mail</span>
+          <input [ngClass]="{'outbox': (!userForm.get('email').valid && userForm.get('email').dirty)}" type="text"
+            formControlName="email" class="form-control" required>
+          <span *ngIf="(!userForm.get('email').valid && userForm.get('email').dirty)" style="color: red;">Please Enter
+            Valid E-mail</span>
         </div>
       </div>
     </div>
@@ -28,8 +32,10 @@
           <label for="">
             Password:
           </label>
-          <input [ngClass]="{'outbox': (!userForm.get('Password').valid && userForm.get('Password').dirty)}" type="password" formControlName="Password" class="form-control" required>
-          <span *ngIf="(!userForm.get('Password').valid && userForm.get('Password').dirty)" style="color: red;">Please Enter A Password</span>
+          <input [ngClass]="{'outbox': (!userForm.get('Password').valid && userForm.get('Password').dirty)}"
+            type="password" formControlName="Password" class="form-control" required>
+          <span *ngIf="(!userForm.get('Password').valid && userForm.get('Password').dirty)" style="color: red;">Please
+            Enter A Password</span>
         </div>
       </div>
     </div>
@@ -39,47 +45,57 @@
           <label for="">
             Confirm-Password:
           </label>
-          <input [ngClass]="{'outbox': (!userForm.get('ConfirmPassword').valid && userForm.get('ConfirmPassword').dirty)}" type="text" formControlName="ConfirmPassword" class="form-control" required>
-          <span *ngIf="(!userForm.get('ConfirmPassword').valid && userForm.get('ConfirmPassword').dirty)" style="color: red;">Password Mismatch</span>
+          <input
+            [ngClass]="{'outbox': (!userForm.get('ConfirmPassword').valid && userForm.get('ConfirmPassword').dirty)}"
+            type="text" formControlName="ConfirmPassword" class="form-control" required>
+          <span *ngIf="(!userForm.get('ConfirmPassword').valid && userForm.get('ConfirmPassword').dirty)"
+            style="color: red;">Password Mismatch</span>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            Country:
-          </label>
-          <select name="" formControlName="country" class="form-control" required>
-            <option *ngFor="let country of countryList" [value]="country.code">{{country.name}}</option>
-          </select>
+    <div >
+      <div *ngFor="let addressGroup of userForm.get('address').value; let i=index;" formArrayName="address">
+        <div [formGroupName]="i">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="formGroup">
+                <label for="">
+                  Country:
+                </label>
+                <select name="" formControlName="country" class="form-control" required>
+                  <option *ngFor="let addressGroup of countryList" [value]="addressGroup">{{countries[addressGroup].name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+             <div class="col-lg-12">
+              <div class="formGroup">
+                <label for="">
+                  State:
+                </label>
+                <select name="" formControlName="state" class="form-control" required>
+                  <option *ngFor="let addressGroup of stateList[i]" [value]="addressGroup.code">{{addressGroup.name}}</option>
+                </select>]
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="formGroup">
+                <label for="">
+                  City:
+                </label>
+                <select name="" formControlName="city" class="form-control" required>
+                  <option *ngFor="let addressGroup of cityList[i]" [value]="addressGroup.code">{{addressGroup.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            State:
-          </label>
-          <select name="" formControlName="state" class="form-control" required>
-            <option *ngFor="let state of stateList" [value]="state.code">{{state.name}}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            City:
-          </label>
-          <select name="" formControlName="city" class="form-control" required>
-            <option *ngFor="let city of cityList" [value]="city.code">{{city.name}}</option>
-          </select>
-        </div>
-      </div>
-    </div>
+
     <div class="row">
       <div class="col-lg-12">
         <div class="formGroup">
@@ -94,7 +110,8 @@
               <label for="male">Male</label>
             </div>
             <div class="col-lg-3">
-              <input type="radio" id="female" name="gender" value="female" formControlName="gender" class="form-control">
+              <input type="radio" id="female" name="gender" value="female" formControlName="gender"
+                class="form-control">
               <label for="female">Female</label>
             </div>
             <div class="col-lg-3">
@@ -115,15 +132,18 @@
               </label>
             </div>
             <div class="col-lg-3">
-              <input type="radio" id="Married" name="Marital-Status" value="Married" formControlName="Marital-Status" class="form-control">
+              <input type="radio" id="Married" name="Marital" value="Married" formControlName="Marital-Status"
+                class="form-control">
               <label for="Married">Married</label>
             </div>
             <div class="col-lg-3">
-              <input type="radio" id="Unmarried" name="Marital-Status" value="Unmarried" formControlName="Marital-Status" class="form-control">
+              <input type="radio" id="Unmarried" name="Marital" value="Unmarried" formControlName="Marital-Status"
+                class="form-control">
               <label for="Unmaaried">Unmarried</label>
             </div>
             <div class="col-lg-3">
-              <input type="radio" id="Widow" name="Marital-Status" value="Widow" formControlName="Marital-Status" class="form-control">
+              <input type="radio" id="Widow" name="Marital" value="Widow" formControlName="Marital-Status"
+                class="form-control">
               <label for="Widow">Widow</label>
             </div>
           </div>
@@ -136,8 +156,10 @@
           <label for="">
             Favourite-Food:
           </label>
-          <input [ngClass]="{'outbox': (!userForm.get('Fav-Food').valid && userForm.get('Fav-Food').dirty)}" type="text" formControlName="Fav-Food" class="form-control" required>
-          <span *ngIf="(!userForm.get('Fav-Food').valid && userForm.get('Fav-Food').dirty)" style="color: red;">Please Enter Your Favourite-Food</span>
+          <input [ngClass]="{'outbox': (!userForm.get('Fav-Food').valid && userForm.get('Fav-Food').dirty)}" type="text"
+            formControlName="Fav-Food" class="form-control" required>
+          <span *ngIf="(!userForm.get('Food').valid && userForm.get('Fav-Food').dirty)" style="color: red;">Please Enter
+            Your Favourite-Food</span>
         </div>
       </div>
     </div>
@@ -147,14 +169,16 @@
           <label for="">
             Favourite-Color:
           </label>
-          <input [ngClass]="{'outbox': (!userForm.get('Fav-color').valid && userForm.get('Fav-color').dirty)}" type="text" formControlName="Fav-color" class="form-control" required>
-          <span *ngIf="(!userForm.get('Fav-color').valid && userForm.get('Fav-color').dirty)" style="color: red;">Please Enter Your Favourite Color</span>
+          <input [ngClass]="{'outbox': (!userForm.get('Fav-color').valid && userForm.get('Fav-color').dirty)}"
+            type="text" formControlName="Fav-color" class="form-control" required>
+          <span *ngIf="(!userForm.get('Color').valid && userForm.get('Fav-color').dirty)" style="color: red;">Please
+            Enter Your Favourite Color</span>
         </div>
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-lg-12 text-center">
-        <input [disabled] = "!userForm.valid ? true: false" type="submit" class="btn btn-primary ">
+        <input [disabled]="!userForm.valid ? true: false" type="submit" class="btn btn-primary ">
       </div>
     </div>
   </form>

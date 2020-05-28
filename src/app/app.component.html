@@ -53,44 +53,58 @@
         </div>
       </div>
     </div>
-    <div >
-      <div *ngFor="let addressGroup of userForm.get('address').value; let i=index;" formArrayName="address">
-        <div [formGroupName]="i">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="formGroup">
-                <label for="">
+    <div class="row">
+      <div class='col-lg-12'>
+        <label for="">
+          Empty textbox:
+        </label>
+        <input [ngClass]="{'outbox': (!userForm.get('ConfirmPassword').valid && userForm.get('ConfirmPassword').dirty)}"
+          type="text" formControlName="ConfirmPassword" class="form-control" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12" formArrayName="address">
+        <div *ngFor="let addressGroup of userForm.get('address')['controls']; index as i;">
+          <div [formGroupName]="i">
+            <div class="row">
+              <div class="col-lg-4">
+
+                <label for="country">
                   Country:
                 </label>
-                <select name="" formControlName="country" class="form-control" required>
-                  <option *ngFor="let addressGroup of countryList" [value]="addressGroup">{{countries[addressGroup].name}}</option>
+                <select  formControlName="country" class="form-control" required>
+                  <option *ngFor="let addressGroup of countryList" [value]="addressGroup">
+                    {{countries[addressGroup].name}}</option>
                 </select>
+
               </div>
             </div>
-          </div>
-          <div class="row">
-             <div class="col-lg-12">
-              <div class="formGroup">
-                <label for="">
-                  State:
-                </label>
-                <select name="" formControlName="state" class="form-control" required>
-                  <option *ngFor="let addressGroup of stateList[i]" [value]="addressGroup.code">{{addressGroup.name}}</option>
-                </select>]
-              </div>
+
+            <div class="col-lg-4">
+
+              <label for="state">
+                State:
+              </label>
+              <select  formControlName="state" class="form-control" required>
+                <option *ngFor="let addressGroup of stateList[i]" [value]="addressGroup.code">{{addressGroup.name}}
+                </option>
+              </select>]
+
             </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="formGroup">
-                <label for="">
-                  City:
-                </label>
-                <select name="" formControlName="city" class="form-control" required>
-                  <option *ngFor="let addressGroup of cityList[i]" [value]="addressGroup.code">{{addressGroup.name}}</option>
-                </select>
-              </div>
+
+
+            <div class="col-lg-4">
+
+              <label for="city">
+                City:
+              </label>
+              <select  formControlName="city" class="form-control" required>
+                <option *ngFor="let addressGroup of cityList[i]" [value]="addressGroup.code">{{addressGroup.name}}
+                </option>
+              </select>
+
             </div>
+
           </div>
         </div>
       </div>

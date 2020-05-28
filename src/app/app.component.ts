@@ -131,7 +131,7 @@ export class AppComponent {
 
     });
 
-    console.log(this.userForm.get("address").value);
+    console.log(this.userForm.get("address").get("0"));
 
     for(let  i in this.userForm.get('address').value){
       console.log(this.userForm.get('address').get(i).get('country').valueChanges);

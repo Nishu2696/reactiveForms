@@ -68,7 +68,6 @@
           <div [formGroupName]="i">
             <div class="row">
               <div class="col-lg-4">
-
                 <label for="country">
                   Country:
                 </label>
@@ -76,12 +75,9 @@
                   <option *ngFor="let addressGroup of countryList" [value]="addressGroup">
                     {{countries[addressGroup].name}}</option>
                 </select>
-
               </div>
             </div>
-
             <div class="col-lg-4">
-
               <label for="state">
                 State:
               </label>
@@ -89,12 +85,8 @@
                 <option *ngFor="let addressGroup of stateList[i]" [value]="addressGroup.code">{{addressGroup.name}}
                 </option>
               </select>]
-
             </div>
-
-
             <div class="col-lg-4">
-
               <label for="city">
                 City:
               </label>
@@ -102,9 +94,7 @@
                 <option *ngFor="let addressGroup of cityList[i]" [value]="addressGroup.code">{{addressGroup.name}}
                 </option>
               </select>
-
             </div>
-
           </div>
         </div>
       </div>

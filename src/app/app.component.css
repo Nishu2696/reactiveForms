@@ -1,53 +1,7 @@
-#male{
-    width:5%;
-}
-
-#female{
-    width:5%;
-}
-
-#Other{
-    width:5%;
-}
-
-#Married{
-    width:5%;
-}
-
-#Unmarried{
-    width:5%;
-}
-
-#Widow{
-    width:5%;
-}
-
-.outbox{
+.error {
     border: 1px solid red;
 }
 
-@media only screen and (min-width: 600px) {
-    #male {
-      width: 5%;
-    }
-
-    #female{
-        width:5%;
-    }
-    
-    #Other{
-        width:5%;
-    }
-    
-    #Married{
-        width:5%;
-    }
-    
-    #Unmarried{
-        width:5%;
-    }
-    
-    #Widow{
-        width:5%;
-    }
-  }
+.valid {
+    border: 1px solid green;
+}

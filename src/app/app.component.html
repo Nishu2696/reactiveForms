@@ -1,189 +1,127 @@
 <div class="container">
-  <form [formGroup]="userForm" (submit)="submitform()">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            Name:
-          </label>
-          <input [ngClass]="{'outbox': (!userForm.get('Name').valid && userForm.get('Name').dirty)}" type="text"
-            formControlName="Name" class="form-control" required>
-          <span *ngIf="(!userForm.get('Name').valid && userForm.get('Name').dirty)" style="color: red;">Please Enter
-            Name</span>
-        </div>
+  <div class="row">
+      <div class="col-lg-12 text-center mt-5">
+          <h3> Assignment Form</h3>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            E-mail:
-          </label>
-          <input [ngClass]="{'outbox': (!userForm.get('email').valid && userForm.get('email').dirty)}" type="text"
-            formControlName="email" class="form-control" required>
-          <span *ngIf="(!userForm.get('email').valid && userForm.get('email').dirty)" style="color: red;">Please Enter
-            Valid E-mail</span>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            Password:
-          </label>
-          <input [ngClass]="{'outbox': (!userForm.get('Password').valid && userForm.get('Password').dirty)}"
-            type="password" formControlName="Password" class="form-control" required>
-          <span *ngIf="(!userForm.get('Password').valid && userForm.get('Password').dirty)" style="color: red;">Please
-            Enter A Password</span>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            Confirm-Password:
-          </label>
-          <input
-            [ngClass]="{'outbox': (!userForm.get('ConfirmPassword').valid && userForm.get('ConfirmPassword').dirty)}"
-            type="text" formControlName="ConfirmPassword" class="form-control" required>
-          <span *ngIf="(!userForm.get('ConfirmPassword').valid && userForm.get('ConfirmPassword').dirty)"
-            style="color: red;">Password Mismatch</span>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class='col-lg-12'>
-        <label for="">
-          Empty textbox:
-        </label>
-        <input [ngClass]="{'outbox': (!userForm.get('ConfirmPassword').valid && userForm.get('ConfirmPassword').dirty)}"
-          type="text" formControlName="ConfirmPassword" class="form-control" required>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12" formArrayName="address">
-        <div *ngFor="let addressGroup of userForm.get('address')['controls']; index as i;">
-          <div [formGroupName]="i">
-            <div class="row">
-              <div class="col-lg-4">
-                <label for="country">
-                  Country:
-                </label>
-                <select  formControlName="country" class="form-control" required>
-                  <option *ngFor="let addressGroup of countryList" [value]="addressGroup">
-                    {{countries[addressGroup].name}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <label for="state">
-                State:
-              </label>
-              <select  formControlName="state" class="form-control" required>
-                <option *ngFor="let addressGroup of stateList[i]" [value]="addressGroup.code">{{addressGroup.name}}
-                </option>
-              </select>
-            </div>
-            <div class="col-lg-4">
-              <label for="city">
-                City:
-              </label>
-              <select  formControlName="city" class="form-control" required>
-                <option *ngFor="let addressGroup of cityList[i]" [value]="addressGroup.code">{{addressGroup.name}}
-                </option>
-              </select>
-            </div>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+          <div class="col-lg-6">
+              <label for="uname">User name</label>
+              <input type="text" class="form-control" formControlName="name" [ngClass]="{'error':!myForm.get('name').valid && myForm.get('name').dirty,'valid':myForm.get('name').valid}">
+              <span *ngIf="!myForm.get('name').valid && myForm.get('name').dirty" style="color: red;">Please enter a name</span>
           </div>
-        </div>
+          <div class="col-lg-6">
+              <label for="email">E-mail</label>
+              <input type="text" class="form-control" formControlName="email" [ngClass]="{'error':!myForm.get('email').valid && myForm.get('email').dirty,'valid':myForm.get('email').valid}">
+              <span *ngIf="!myForm.get('email').valid && myForm.get('email').dirty" style="color: red;">Please enter a Valid E-mail</span>
+          </div>
       </div>
-    </div>
+      <br>
+      <div class="row">
+          <div class="col-lg-6">
+              <label for="pass">Password</label>
+              <input type="password" class="form-control" formControlName="pass" [ngClass]="{'error':!myForm.get('pass').valid && myForm.get('pass').dirty,'valid':myForm.get('pass').valid}">
+              <span *ngIf="!myForm.get('pass').valid && myForm.get('pass').dirty" style="color: red;">Please enter a Password</span>
 
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <div class="row">
-            <div class="col-lg-3">
-              <label for="">
-                Gender:
-              </label>
-            </div>
-            <div class="col-lg-3">
-              <input type="radio" id="male" name="gender" value="male" formControlName="gender" class="form-control">
-              <label for="male">Male</label>
-            </div>
-            <div class="col-lg-3">
-              <input type="radio" id="female" name="gender" value="female" formControlName="gender"
-                class="form-control">
-              <label for="female">Female</label>
-            </div>
-            <div class="col-lg-3">
-              <input type="radio" id="Other" name="gender" value="Other" formControlName="gender" class="form-control">
-              <label for="Other">Others</label>
-            </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <div class="row">
-            <div class="col-lg-3">
-              <label for="">
-                Marital-Status:
-              </label>
-            </div>
-            <div class="col-lg-3">
-              <input type="radio" id="Married" name="Marital" value="Married" formControlName="Marital-Status"
-                class="form-control">
-              <label for="Married">Married</label>
-            </div>
-            <div class="col-lg-3">
-              <input type="radio" id="Unmarried" name="Marital" value="Unmarried" formControlName="Marital-Status"
-                class="form-control">
-              <label for="Unmaaried">Unmarried</label>
-            </div>
-            <div class="col-lg-3">
-              <input type="radio" id="Widow" name="Marital" value="Widow" formControlName="Marital-Status"
-                class="form-control">
-              <label for="Widow">Widow</label>
-            </div>
+          <div class="col-lg-6">
+              <label for="cnfrm_pass">Confirm Password</label>
+              <input type="password" class="form-control" formControlName="cnfrm_pass" [ngClass]="{'error':!myForm.get('cnfrm_pass').valid && myForm.get('cnfrm_pass').dirty,'valid':myForm.get('cnfrm_pass').valid}">
+              <span *ngIf="!myForm.get('cnfrm_pass').valid && myForm.get('cnfrm_pass').dirty" style="color: red;">Please confirm the password</span><br>
+              <span *ngIf="myForm.get('pass').value!=myForm.get('cnfrm_pass').value && myForm.get('cnfrm_pass').dirty" style="color: red;">Password doesn't match</span>
+
           </div>
-        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            Favourite-Food:
-          </label>
-          <input [ngClass]="{'outbox': (!userForm.get('Fav-Food').valid && userForm.get('Fav-Food').dirty)}" type="text"
-            formControlName="Fav-Food" class="form-control" required>
-          <span *ngIf="(!userForm.get('Food').valid && userForm.get('Fav-Food').dirty)" style="color: red;">Please Enter
-            Your Favourite-Food</span>
-        </div>
+      <br>
+      <div class="row">
+          <div class="col-lg-12" formArrayName="address">
+              <div *ngFor="let item of myForm.get('address')['controls']; index as i">
+                  <div [formGroupName]="i">
+                      <div class="row">
+                          <div class="col-lg-4">
+                              <label for="country">Country</label>
+                              <!-- <select formControlName="country" class="custom-select" [ngClass]="{'error':!myForm.get('country').valid ,'valid':myForm.get('country').valid}"> -->
+                              <select formControlName="country" class="custom-select">
+                                <option *ngFor="let item of countryList" [value]="item">{{countries[item].name}}</option>
+                              </select>
+                              <!-- <span *ngIf="!myForm.get('country').valid " style="color: red;">Please select a country</span> -->
+                          </div>
+                          <div class="col-lg-4">
+                              <label for="state">state</label>
+                              <!-- <select formControlName="state" class="custom-select" [ngClass]="{'error':!myForm.get('state').valid,'valid':myForm.get('state').valid}"> -->
+                              <select formControlName="state" class="custom-select">
+                                <option *ngFor="let item of stateList[i]" [value]="item.code">{{item.name}}</option>
+                            </select>
+                              <!-- <span *ngIf="!myForm.get('state').valid " style="color: red;">Please select a state</span> -->
+                          </div>
+                          <div class="col-lg-4">
+                              <label for="city">city</label>
+                              <!-- <select formControlName="city" class="custom-select" [ngClass]="{'error':!myForm.get('city').valid ,'valid':myForm.get('city').valid}"> -->
+                              <select formControlName="city" class="custom-select">
+                                <option *ngFor="let item of cityList[i]" [value]="item.code">{{item.name}}</option>
+                             </select>
+                              <!-- <span *ngIf="!myForm.get('city').valid " style="color: red;">Please select a city</span> -->
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4">
+                              <label for="add1">Address Line 1</label>
+                              <!-- <input type="text" class="form-control" formControlName="add1"> -->
+                              <input type="text" class="form-control" formControlName="add1" [ngClass]="{'error':!myForm.get('address').get(i|stringCast).get('add1').valid && myForm.get('address').get(i|stringCast).get('add1').dirty,'valid': myForm.get('address').get(i|stringCast).get('add1').valid}">
+                              <span *ngIf="!myForm.get('address').get(i|stringCast).get('add1').valid && myForm.get('address').get(i|stringCast).get('add1').dirty" style="color: red;">Please enter a Address</span>
+                          </div>
+                          <div class="col-lg-4">
+                              <label for="add2">Address Line 2</label>
+                              <input type="text" class="form-control" formControlName="add2" [ngClass]="{'error':!myForm.get('address').get(i|stringCast).get('add2').valid && myForm.get('address').get(i|stringCast).get('add2').dirty,'valid':myForm.get('address').get(i|stringCast).get('add2').valid}">
+                              <span *ngIf="!myForm.get('address').get(i|stringCast).get('add2').valid && myForm.get('address').get(i|stringCast).get('add2').dirty" style="color: red;">Please enter a Address</span>
+                          </div>
+                          <div class="col-lg-4">
+                              <label for="zipCode">Zip Code</label>
+                              <input type="text" class="form-control" formControlName="zipCode" [ngClass]="{'error':!myForm.get('address').get(i|stringCast).get('zipCode').valid && myForm.get('address').get(i|stringCast).get('zipCode').dirty,'valid':myForm.get('address').get(i|stringCast).get('zipCode').valid}">
+                              <span *ngIf="!myForm.get('address').get(i|stringCast).get('zipCode').valid && myForm.get('address').get(i|stringCast).get('zipCode').dirty" style="color: red;">Please enter a ZipCode</span>
+                          </div>
+                      </div>
+                      <hr>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="formGroup">
-          <label for="">
-            Favourite-Color:
-          </label>
-          <input [ngClass]="{'outbox': (!userForm.get('Fav-color').valid && userForm.get('Fav-color').dirty)}"
-            type="text" formControlName="Fav-color" class="form-control" required>
-          <span *ngIf="(!userForm.get('Color').valid && userForm.get('Fav-color').dirty)" style="color: red;">Please
-            Enter Your Favourite Color</span>
-        </div>
+      <br>
+      <div class="row">
+          <div class="col-lg-4 ">
+              Gender&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marital-Status<br>
+              <input type="radio" aria-label="Radio button for following text input" value="male" formControlName="gender" checked>
+              <label for="gender">Male</label>&nbsp;
+              <input type="radio" aria-label="Radio button for following text input" value="female" formControlName="gender" [ngClass]="{'error':!myForm.get('gender').valid ,'valid':myForm.get('gender').valid}">
+              <label for="gender">Female</label> &nbsp;&nbsp;&nbsp;
+
+              <input type="radio" aria-label="Radio button for following text input" value="married" formControlName="marital_status" checked>
+              <label for="status">Married</label>&nbsp;&nbsp;&nbsp;
+              <input type="radio" aria-label="Radio button for following text input" value="single" formControlName="marital_status" [ngClass]="{'error':!myForm.get('marital_status').valid ,'valid':myForm.get('marital_status').valid}">
+              <label for="status">single</label>
+              <br>
+              <!-- <span *ngIf="!myForm.get('gender').valid " style="color: red;">Please select a gender</span><br>
+              <span *ngIf="!myForm.get('marital_status').valid " style="color: red;">Please select a marital status</span> -->
+          </div>
+          <div class="col-lg-4">
+              <label for="favFood">Favorite Food</label>
+              <input type="text" class="form-control" formControlName="favFood" [ngClass]="{'error':!myForm.get('favFood').valid && myForm.get('favFood').dirty,'valid':myForm.get('favFood').valid}">
+              <span *ngIf="!myForm.get('favFood').valid && myForm.get('favFood').dirty" style="color: red;">Please enter the favorite food</span>
+          </div>
+          <div class="col-lg-4">
+              <label for="favcolor">Favorite Color</label>
+              <input type="text" class="form-control" formControlName="favcolor" [ngClass]="{'error':!myForm.get('favcolor').valid && myForm.get('favcolor').dirty,'valid':myForm.get('favcolor').valid}">
+              <span *ngIf="!myForm.get('favcolor').valid && myForm.get('favcolor').dirty" style="color: red;">Please enter the favorite color</span>
+          </div>
       </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-lg-12 text-center">
-        <input [disabled]="!userForm.valid ? true: false" type="submit" class="btn btn-primary ">
+      <br>
+      <div class="row">
+          <div class="col-lg-10 text-right">
+              <input type="submit" value="Submit" class="btn btn-dark" *ngIf="this.myForm.valid">
+              <input type="submit" value="Submit" class="btn btn-dark" *ngIf="!this.myForm.valid" disabled>
+          </div>
       </div>
-    </div>
   </form>
+  <pre>{{myForm.value|json}}</pre>
 </div>
